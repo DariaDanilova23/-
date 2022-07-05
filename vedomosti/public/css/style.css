@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+}
+header{
+    height: 5.5em;
+    background-color: #E4E2E2;
+}
+table{
+    margin: 2em auto;
+    border-spacing:0;
+}
+th,td{
+    border: 2px solid #D3D3D3;
+}
