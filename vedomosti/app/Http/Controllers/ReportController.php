@@ -27,6 +27,9 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function professor (){
+        return view('professors');
+    }
     public function create()
     {
         Report::truncate();
