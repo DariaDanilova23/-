@@ -26,7 +26,7 @@ class FormController extends Controller
     public function create(Request $request)
     {
          Professor::create([
-            'FIO' => $request->['FIO'],
+            'FIO' => $request['FIO'],
             'Address' => $request['Address'],
             'PhoneNo' => $request['PhoneNo'],
             'Salary'=>$request['Salary']
