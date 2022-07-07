@@ -48,7 +48,9 @@ class ReportController extends Controller
                     $sumMarks+=array_sum($student['grade']);
                     $countMarks+=count($student['grade']);
                     }
-                $average=$sumMarks/$countMarks;//среднее арифметическое
+                if($countMarks!=0) {
+                    $average = $sumMarks / $countMarks;//среднее арифметическое
+                }
             }
             $row->Amount=$sudentsOnCourse;
             $row->Average_grade=$average;
