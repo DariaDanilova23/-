@@ -37,6 +37,7 @@ class ReportController extends Controller
             $row = new Report;
             $countMarks=0;
             $sumMarks=0;
+            $average=0;
             $row->FIO=$professors['FIO'];
             $course=Course::all()->where('id_professor',$professors['id']);
             $sudentsOnCourse=0;
