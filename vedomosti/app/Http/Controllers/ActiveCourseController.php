@@ -14,7 +14,8 @@ class ActiveCourseController extends Controller
      */
     public function index()
     {
-        return view('forms',['tittle'=>['ID Студента', 'ID дисциплины','Оценки'],
+        return view('forms', [
+            'title'=>['ID Студента', 'ID дисциплины','Оценки'],
             'rows'=>ActiveCourse::all(),
             'names'=>['id_student','id_course','grade'],
             'linkURL'=>'activecourse'

@@ -15,7 +15,8 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        return view('forms',['tittle'=>['ФИО профессора', 'Адрес','Телефон','Оклад'],
+        return view('professors', [
+            'title'=>['ФИО профессора', 'Адрес','Телефон','Оклад'],
             'rows'=>Professor::all(),
             'names'=>['FIO','Address','PhoneNo','Salary'],
             'linkURL'=>'professor'
@@ -29,13 +30,7 @@ class ProfessorController extends Controller
      */
     public function create(Request $request)
     {
-         Professor::create([
-            'FIO' => $request['FIO'],
-            'Address' => $request['Address'],
-            'PhoneNo' => $request['PhoneNo'],
-            'Salary'=>$request['Salary']
-        ]);
-        return back();
+        //
     }
 
     /**
@@ -46,7 +41,13 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Professor::create([
+            'FIO' => $request['FIO'],
+            'Address' => $request['Address'],
+            'PhoneNo' => $request['PhoneNo'],
+            'Salary'=>$request['Salary']
+        ]);
+        return back();
     }
 
     /**

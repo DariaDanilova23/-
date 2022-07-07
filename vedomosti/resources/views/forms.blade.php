@@ -10,8 +10,8 @@
 </head>
 <table id="data-table" class="w3-content w3-section w3-table w3-bordered">
     <thead>
-    @foreach ($tittle as $tittleItem)
-    <th>{!! $tittleItem !!}</th>
+    @foreach ($title as $titleItem)
+    <th>{!! $titleItem !!}</th>
     @endforeach
     </thead>
     @foreach ($rows as $rowsItem)

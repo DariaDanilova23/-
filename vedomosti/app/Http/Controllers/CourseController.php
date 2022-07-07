@@ -15,7 +15,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('forms',['tittle'=>['Название дисциплины', 'ID профессора'],
+        return view('forms', [
+            'title'=>['Название дисциплины', 'ID профессора'],
             'rows'=>Course::all(),
             'names'=>['Name','id_professor'],
             'linkURL'=>'course'

@@ -1,0 +1,8 @@
+.w3-table th,
+.w3-table td {
+    vertical-align: middle !important;
+}
+
+.deleted-entry {
+    display: none;
+}
