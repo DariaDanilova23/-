@@ -56,20 +56,6 @@ class ReportController extends Controller
             $row->Average_grade=$average;
             $row->save();
         }
-        /*
-            $row->FIO =DB::table('professors')->get()->value('FIO');
-                ->join('courses', 'professors.id', '=', 'courses.id_professor')
-                ->join('active_courses', 'courses.id', '=', 'active_courses.id_course')
-                ->select('professors.*')->get()->value('FIO');
-            $row->Amount = DB::table('professors')
-                ->join('courses', 'professors.id', '=', 'courses.id_professor')
-                ->join('active_courses', 'courses.id', '=', 'active_courses.id_course')
-                ->select('active_courses.id_student')->count();
-            $row->Average_grade = DB::table('professors')
-                ->join('courses', 'professors.id', '=', 'courses.id_professor')
-                ->join('active_courses', 'courses.id', '=', 'active_courses.id_course')
-                ->select('active_courses.grade')->get()->value('0');
-            $row->save();*/
         return $this->index();
     }
 
