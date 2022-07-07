@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Form;
+use App\Models\Course;
 use App\Models\Professor;
 use Illuminate\Http\Request;
 
-class FormController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,11 @@ class FormController extends Controller
      */
     public function index()
     {
-        //
+        return view('forms',['tittle'=>['Название дисциплины', 'ID профессора'],
+            'rows'=>Course::all(),
+            'names'=>['Name','id_professor'],
+            'linkURL'=>'course'
+        ]);
     }
 
     /**
@@ -25,13 +29,11 @@ class FormController extends Controller
      */
     public function create(Request $request)
     {
-         Professor::create([
-            'FIO' => $request['FIO'],
-            'Address' => $request['Address'],
-            'PhoneNo' => $request['PhoneNo'],
-            'Salary'=>$request['Salary']
+        Course::create([
+            'Name' => $request['Name'],
+            'id_professor' => $request['id_professor']
         ]);
-        return view('professors');
+        return back();
     }
 
     /**
@@ -48,10 +50,10 @@ class FormController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Form  $form
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Form $form)
+    public function show(Course $course)
     {
         //
     }
@@ -59,10 +61,10 @@ class FormController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Form  $form
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit(Form $form)
+    public function edit(Course $course)
     {
         //
     }
@@ -71,31 +73,26 @@ class FormController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Form  $form
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Form $form)
+    public function update(Request $request, Course $course)
     {
-        return Professor::where('id',$request->id)->update([
-            'FIO' => $request->FIO,
-            'Address' => $request->Address,
-            'PhoneNo' => $request->PhoneNo,
-            'Salary'=>$request->Salary
+        return Course::where('id',$request->id)->update([
+            'Name' => $request->Name,
+            'id_professor' => $request->id_professor
         ]);
-        return response()->json( array('FIO'=>$request->FIO,'Address'=>$request->Address));
+        return response()->json();
     }
-    public function remove(Request $request)
-    {
-        Professor::where('id',$request->id)->delete();
-    }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Form  $form
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Form $form)
+    public function destroy(Request $request)
     {
-
+        Course::where('id',$request->id)->delete();
     }
 }

@@ -1,10 +1,12 @@
 $(document).ready(function() {
     var CSRF_TOKEN = $('[name="_token"]')[0].value;
+    var link =$(".link").val();
+    console.log("<?php echo $linkURL; ?>");
     let removes = document.querySelectorAll('.delete-item')
     for (let remove of removes) {
         remove.addEventListener('click', async (event) => {
-            let response2 = await fetch('remove-professor', {
-                method: 'POST',
+            let response2 = await fetch(link+"/`${event.target.id}`", {
+                method: 'delete',
                 headers: {
                     'Content-Type': 'application/json;'
                 },
@@ -13,6 +15,6 @@ $(document).ready(function() {
                     id: `${event.target.id}`
                 })
             });
-            //document.location.reload();
+            document.location.reload();
         });
     }});

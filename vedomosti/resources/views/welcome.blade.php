@@ -18,7 +18,7 @@
     </script>
 </head>
 <body>
-    <div class="w3-top w3-bar w3-padding-large w3-white w3-card" style="position: sticky;">
+<div class="w3-top w3-bar w3-padding-large w3-white w3-card" style="position: sticky;">
         <button
             class="w3-right w3-button w3-round w3-text-white w3-hover-text-white w3-blue w3-hover-light-blue"
             onclick="download()"
@@ -26,6 +26,14 @@
             Скачать .xlsx
         </button>
     </div>
+<p><select name="hero" onchange="window.location.href=this.value;">
+        <option selected disabled>Выбор таблицы для редактирования</option>
+        <option value="{{ route('professor.index') }}">Профессора</option>
+        <option value="{{ route('course.index') }}">Курсы</option>
+        <option value="{{ route('student.index') }}">Студенты</option>
+        <option value="{{ route('activecourse.index') }}">Запись на курсы</option>
+    </select>
+</p>
     <table id="data-table" class="w3-content w3-section w3-table w3-bordered">
         <thead>
             <th>ФИО профессора</th>
