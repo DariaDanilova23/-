@@ -14,7 +14,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('forms',['tittle'=>['ФИО', 'Адрес', 'Номер телефона', 'email','Номер зачётки'],
+        return view('forms', [
+            'title'=>['ФИО', 'Адрес', 'Номер телефона', 'email','Номер зачётки'],
             'rows'=>Student::all(),
             'names'=>['FIO','Address','PhoneNo','email','ReportCardNo'],
             'linkURL'=>'student'

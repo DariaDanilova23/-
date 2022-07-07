@@ -18,7 +18,17 @@
     </script>
 </head>
 <body>
-<div class="w3-top w3-bar w3-padding-large w3-white w3-card" style="position: sticky;">
+    <div class="w3-top w3-bar w3-padding-large w3-white w3-card" style="position: sticky;">
+        <div class="w3-bar-item" style="padding-right: 4px;">Таблица</div>
+        <div class="w3-dropdown-hover">
+            <button class="w3-button" style="padding-left: 4px; font-weight: bold">Студенты</button>
+            <div class="w3-dropdown-content w3-bar-block w3-card-4" style="position: fixed">
+                <a class="w3-bar-item w3-button" href="{{ route('professor.index') }}">Профессора</a>
+                <a class="w3-bar-item w3-button" href="{{ route('course.index') }}">Курсы</a>
+                <a class="w3-bar-item w3-button" href="{{ route('student.index') }}">Студенты</a>
+                <a class="w3-bar-item w3-button" href="{{ route('activecourse.index') }}">Запись на курсы</a>
+            </div>
+        </div>
         <button
             class="w3-right w3-button w3-round w3-text-white w3-hover-text-white w3-blue w3-hover-light-blue"
             onclick="download()"
@@ -26,14 +36,6 @@
             Скачать .xlsx
         </button>
     </div>
-<p><select name="hero" onchange="window.location.href=this.value;">
-        <option selected disabled>Выбор таблицы для редактирования</option>
-        <option value="{{ route('professor.index') }}">Профессора</option>
-        <option value="{{ route('course.index') }}">Курсы</option>
-        <option value="{{ route('student.index') }}">Студенты</option>
-        <option value="{{ route('activecourse.index') }}">Запись на курсы</option>
-    </select>
-</p>
     <table id="data-table" class="w3-content w3-section w3-table w3-bordered">
         <thead>
             <th>ФИО профессора</th>
@@ -42,9 +44,9 @@
         </thead>
         @foreach ($rows as $rowsItem)
         <tr>
-            <td> {!! $rowsItem['FIO']!!}</td>
-            <td>{!! $rowsItem['Amount']!!}</td>
-            <td>{!! $rowsItem['Average_grade']!!}</td>
+            <td>{!! $rowsItem['FIO'] !!}</td>
+            <td>{!! $rowsItem['Amount'] !!}</td>
+            <td>{!! $rowsItem['Average_grade'] !!}</td>
         </tr>
         @endforeach
     </table>
