@@ -28,6 +28,7 @@
                 Redo ⮌
             </button>
         </div>
+        @include('menu', [ 'current_table' => 'Профессора' ])
         <div class="w3-right" style="display: inline-block">
             <button
                 id="deselect-btn"
