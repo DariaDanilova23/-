@@ -15,12 +15,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('forms', [
-            'title'=>['Название дисциплины', 'ID профессора'],
-            'rows'=>Course::all(),
-            'names'=>['Name','id_professor'],
-            'linkURL'=>'course'
-        ]);
+        $course=Course::all();
+        return view('course',['rows'=>Course::all(),
+            'names'=>['id','Name','id_professor']]);
     }
 
     /**
@@ -30,11 +27,7 @@ class CourseController extends Controller
      */
     public function create(Request $request)
     {
-        Course::create([
-            'Name' => $request['Name'],
-            'id_professor' => $request['id_professor']
-        ]);
-        return back();
+
     }
 
     /**
@@ -45,7 +38,11 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Course::create([
+            'Name' => $request['Name'],
+            'id_professor' => $request['id_professor']
+        ]);
+        return back();
     }
 
     /**
@@ -92,8 +89,12 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+
+    public function destroy(Course  $course)
     {
-        Course::where('id',$request->id)->delete();
+        $deleteItem=Course::find($course);
+        if($deleteItem){
+            $deleteItem->delete();
+        }
     }
 }

@@ -16,10 +16,8 @@ class ProfessorController extends Controller
     public function index()
     {
         return view('professors', [
-            'title'=>['ФИО профессора', 'Адрес','Телефон','Оклад'],
             'rows'=>Professor::all(),
             'names'=>['FIO','Address','PhoneNo','Salary'],
-            'linkURL'=>'professor'
         ]);
     }
 
@@ -53,10 +51,10 @@ class ProfessorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Form  $form
+     * @param  \App\Models\Professor  $professor
      * @return \Illuminate\Http\Response
      */
-    public function show(Form $form)
+    public function show(Professor  $professor)
     {
         //
     }
@@ -64,10 +62,10 @@ class ProfessorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Form  $form
+     * @param  \App\Models\Professor  $professor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Form $form)
+    public function edit(Professor  $professor)
     {
         //
     }
@@ -76,10 +74,10 @@ class ProfessorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Form  $form
+     * @param  \App\Models\Professor  $professor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Form $form)
+    public function update(Request $request, FProfessor  $professor)
     {
         return Professor::where('id',$request->id)->update([
             'FIO' => $request->FIO,
@@ -95,11 +93,14 @@ class ProfessorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Form  $form
+     * @param  \App\Models\Professor  $professor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Professor  $professor)
     {
-        Professor::where('id',$request->id)->delete();
+        $deleteItem=Professor::find($professor);
+        if($deleteItem){
+            $deleteItem->delete();
+        }
     }
 }

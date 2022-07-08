@@ -2,10 +2,9 @@
 <html lang="ru">
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="fields" content="{{ implode(",", $names) }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Студенты</title>
+    <title>Дисциплины</title>
     <link rel="icon" type="image/x-icon" href="{{ asset("favicon.ico") }}">
     <link rel="stylesheet" href="{{ asset("css/professors.css") }}">
     <link rel="stylesheet" href="{{ asset("css/w3.css") }}">
@@ -28,7 +27,6 @@
             Redo ⮌
         </button>
     </div>
-    @include('menu', [ 'current_table' => 'Студенты' ])
     <div class="w3-right" style="display: inline-block">
         <button
             id="deselect-btn"
@@ -56,11 +54,8 @@
 <div id="content" class="w3-content">
     <div id="new-entry" class="w3-panel w3-card w3-padding-16 w3-display-container">
         <table class="w3-table">
-            <tr><td>ФИО</td><td><input class="w3-input" type="text" name="FIO" value=""/></td></tr>
-            <tr><td>Адрес</td><td><input class="w3-input" type="text" name="Address" value=""/></td></tr>
-            <tr><td>Телефон</td><td><input class="w3-input" type="text" name="PhoneNo" value=""/></td></tr>
-            <tr><td>Email</td><td><input class="w3-input" type="email" name="email" value=""/></td></tr>
-            <tr><td>Номер зачётки</td><td><input class="w3-input" type="number" name="ReportCardNo" value=""/></td></tr>
+            <tr><td>Название дисциплины</td><td><input class="w3-input" type="text" name="Name" value=""/></td></tr>
+            <tr><td>ФИО профессора</td><td><input class="w3-input" type="text" name="id_professor" value=""/></td></tr>
         </table>
         <button
             id="add-btn"
@@ -77,11 +72,8 @@
             <input class="entry-checkbox w3-check w3-display-topright" type="checkbox">
             <table class="w3-table">
                 <tr><td>ID</td><td><input class="entry-id w3-input" type="number" name="id" value="" disabled/></td></tr>
-                <tr><td>ФИО</td><td><input class="entry-field w3-input" type="text" name="FIO" value=""/></td></tr>
-                <tr><td>Адрес</td><td><input class="entry-field w3-input" type="text" name="Address" value=""/></td></tr>
-                <tr><td>Телефон</td><td><input class="entry-field w3-input" type="text" name="PhoneNo" value=""/></td></tr>
-                <tr><td>Email</td><td><input class="entry-field w3-input" type="email" name="email" value=""/></td></tr>
-                <tr><td>Номер зачётки</td><td><input class="entry-field w3-input" type="number" name="ReportCardNo" value=""/></td></tr>
+                <tr><td>Название дисциплины</td><td><input class="entry-field w3-input" type="text" name="Name" value=""/></td></tr>
+                <tr><td>ФИО профессора</td><td><input class="entry-field w3-input" type="text" name="id_professor" value=""/></td></tr>
             </table>
         </div>
     </template>
@@ -90,11 +82,8 @@
             <input class="entry-checkbox w3-check w3-display-topright" type="checkbox">
             <table class="w3-table">
                 <tr><td>ID</td><td><input class="entry-id w3-input" type="number" name="id" value="{!! $rowsItem['id'] !!}" disabled/></td></tr>
-                <tr><td>ФИО</td><td><input class="entry-field w3-input" type="text" name="FIO" value="{!! $rowsItem['FIO'] !!}"/></td></tr>
-                <tr><td>Адрес</td><td><input class="entry-field w3-input" type="text" name="Address" value="{!! $rowsItem['Address'] !!}"/></td></tr>
-                <tr><td>Телефон</td><td><input class="entry-field w3-input" type="text" name="PhoneNo"value="{!! $rowsItem['PhoneNo'] !!}"/></td></tr>
-                <tr><td>Email</td><td><input class="entry-field w3-input" type="email" name="email" value="{!! $rowsItem['email'] !!}"/></td></tr>
-                <tr><td>Номер зачётки</td><td><input class="entry-field w3-input" type="number" name="ReportCardNo" value="{!! $rowsItem['ReportCardNo'] !!}"/></td></tr>
+                <tr><td>Название дисциплины</td><td><input class="entry-field w3-input" type="text" name="Name" value="{!! $rowsItem['Name'] !!}"/></td></tr>
+                <tr><td>ФИО профессора</td><td><input class="entry-field w3-input" type="text" name="id_professor" value="{!! $rowsItem['id_professor'] !!}"/></td></tr>
             </table>
         </div>
     @endforeach

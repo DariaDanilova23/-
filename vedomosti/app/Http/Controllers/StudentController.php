@@ -15,10 +15,8 @@ class StudentController extends Controller
     public function index()
     {
         return view('students', [
-            'title'=>['ФИО', 'Адрес', 'Номер телефона', 'email','Номер зачётки'],
             'rows'=>Student::all(),
             'names'=>['FIO','Address','PhoneNo','email','ReportCardNo'],
-            'linkURL'=>'student'
         ]);
     }
 
@@ -97,8 +95,11 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Student  $student)
     {
-        Student::where('id',$request->id)->delete();
+        $deleteItem=Student::find($student);
+        if($deleteItem){
+            $deleteItem->delete();
+        }
     }
 }

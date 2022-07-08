@@ -19,7 +19,8 @@
 </head>
 <body>
     <div class="w3-top w3-bar w3-padding-large w3-white w3-card" style="position: sticky;">
-        @include('menu', [ 'current_table' => 'Отчёт' ])
+
+        @include('menu', ['current_table' => 'Отчёт'])
         <button
             class="w3-right w3-button w3-round w3-text-white w3-hover-text-white w3-blue w3-hover-light-blue"
             onclick="download()"

@@ -15,10 +15,8 @@ class ActiveCourseController extends Controller
     public function index()
     {
         return view('forms', [
-            'title'=>['ID Студента', 'ID дисциплины','Оценки'],
             'rows'=>ActiveCourse::all(),
-            'names'=>['id_student','id_course','grade'],
-            'linkURL'=>'activecourse'
+            'names'=>['id_student','id_course','grade']
         ]);
     }
 
@@ -29,12 +27,6 @@ class ActiveCourseController extends Controller
      */
     public function create(Request $request)
     {
-        ActiveCourse::create([
-            'id_student'=> $request['id_student'],
-            'id_course'=> $request['id_course'],
-            'grade'=> $request['grade']
-        ]);
-        return back();
     }
 
     /**
@@ -45,7 +37,12 @@ class ActiveCourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ActiveCourse::create([
+            'id_student'=> $request['id_student'],
+            'id_course'=> $request['id_course'],
+            'grade'=> $request['grade']
+        ]);
+        return back();
     }
 
     /**
@@ -93,8 +90,11 @@ class ActiveCourseController extends Controller
      * @param  \App\Models\ActiveCourse  $activeCourse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(ActiveCourse  $activeCourse)
     {
-        ActiveCourse::where('id',$request->id)->delete();
+        $deleteItem=ActiveCourse::find($activeCourse);
+        if($deleteItem){
+            $deleteItem->delete();
+        }
     }
 }
