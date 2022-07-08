@@ -19,16 +19,7 @@
 </head>
 <body>
     <div class="w3-top w3-bar w3-padding-large w3-white w3-card" style="position: sticky;">
-        <div class="w3-bar-item" style="padding-right: 4px;">Таблица</div>
-        <div class="w3-dropdown-hover">
-            <button class="w3-button" style="padding-left: 4px; font-weight: bold">Студенты</button>
-            <div class="w3-dropdown-content w3-bar-block w3-card-4" style="position: fixed">
-                <a class="w3-bar-item w3-button" href="{{ route('professor.index') }}">Профессора</a>
-                <a class="w3-bar-item w3-button" href="{{ route('course.index') }}">Курсы</a>
-                <a class="w3-bar-item w3-button" href="{{ route('student.index') }}">Студенты</a>
-                <a class="w3-bar-item w3-button" href="{{ route('activecourse.index') }}">Запись на курсы</a>
-            </div>
-        </div>
+        @include('menu', [ 'current_table' => 'Отчёт' ])
         <button
             class="w3-right w3-button w3-round w3-text-white w3-hover-text-white w3-blue w3-hover-light-blue"
             onclick="download()"

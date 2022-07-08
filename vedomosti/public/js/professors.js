@@ -1,3 +1,8 @@
+let resource = window.location.pathname
+const meta = (name) => document.querySelector(`meta[name="${name}"]`).getAttribute('content')
+let csrf = meta('csrf-token')
+let fields = meta('fields').split(/\s*,\s*/g)
+
 Math.clamp = (v, a, b) => Math.max(a, Math.min(v, b))
 Set.prototype.equals = function(a){
     return a.size === this.size && [...a].every(value => this.has(value))
@@ -9,16 +14,24 @@ Node.prototype.getElementsByName = function(name){
     return this.querySelectorAll(`[name="${name}"]`)
 }
 
+function filter(obj, names, ret = {}){
+    for(let name of names)
+        if(name in obj)
+            ret[name] = obj[name]
+    return ret
+}
+
 class Entry {
-    constructor(id, FIO, address, phone, salary, deleted = false){
+    constructor(id){
         if(typeof id === 'object'){
             Object.assign(this, id)
             return
         }
-        Object.assign(this, { id, FIO, address, phone, salary, deleted })
+        this.id = id
+        this.deleted = false
     }
     read(element = this.element){
-        for(let name of [ 'id', 'FIO', 'address', 'phone', 'salary' ]){
+        for(let name of [ 'id', ...fields ]){
             let input = element.getElementsByName(name)[0]
             if(input){
                 this[name] = input.value
@@ -27,19 +40,13 @@ class Entry {
         return this
     }
     write(element = this.element){
-        for(let name of [ 'id', 'FIO', 'address', 'phone', 'salary' ]){
+        for(let name of [ 'id', ...fields ]){
             let input = element.getElementsByName(name)[0]
             if(input){
                 input.value = this[name]
             }
         }
         return this
-    }
-    equals(entry){
-        this.FIO === entry.FIO
-        && this.address === entry.address
-        && this.phone === entry.phone
-        && this.salary === entry.salary
     }
 }
 class FieldChange {
@@ -70,9 +77,8 @@ class DeleteChange {
         this.ids = ids
     }
     equals(change){
-        return false
-        //return change.type === this.type
-        //    && change.entry.equals(this.entry)
+        return change.type === this.type
+            && change.entry == this.entry
     }
     redo(){
         forEachId(this.ids, entry => {
@@ -93,9 +99,8 @@ class AddChange {
         this.entry = entry
     }
     equals(change){
-        return false
-        //return change.type === this.type
-        //    && change.entry.equals(this.entry)
+        return change.type === this.type
+            && change.entry == this.entry
     }
     redo(){
         this.entry.element.classList.remove('deleted-entry')
@@ -177,7 +182,7 @@ function push(change){
             return
         } else {
             history.splice(history.length - historyOffset - 1, historyOffset + 1)
-            historyOffset = -1;
+            historyOffset = -1
         }
     }
     history.push(change)
@@ -220,10 +225,10 @@ function deselect(){
     updateButtons()
 }
 function forEachId(ids, func){
-    for(let entry of Object.values(currentTable)){
-        if(ids.has(entry.id)){
+    for(let id of ids){
+        let entry = currentTable[id]
+        if(entry)
             func(entry)
-        }
     }
 }
 function remove(){
@@ -273,18 +278,16 @@ async function save(){
     let removed = []
     for(let [k, initialV] of Object.entries(initialTable)){
         let currentV = currentTable[k]
-        if(!(k in currentTable) || currentV.deleted){
+        if(!currentV || currentV.deleted){
             removed.push(k)
             continue
         }
         /*
         let diff = {}
-        for(let name of ['FIO', 'address', 'phone', 'salary']){
+        for(let name of fields){
             if(initialV[name] != currentV[name])
                 diff[name] = currentV[name]
         }
-        if('salary' in diff)
-            diff.salary = parseFloat(diff.salary)
         */
        diff = currentV
         if(Object.keys(diff).length > 0)
@@ -293,40 +296,30 @@ async function save(){
 
     let headers = {
         'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        'X-CSRF-TOKEN': csrf
     }
     let requests = []
     for(let id of removed){
         requests.push(
-            fetch(`professor/${id}`, {
+            fetch(`${resource}/${id}`, {
                 method: 'DELETE', headers, redirect: 'manual',
             })
         )
     }
     for(let entry of added){
         requests.push(
-            fetch(`professor`, {
+            fetch(`${resource}`, {
                 method: 'POST', headers, redirect: 'manual',
-                body: JSON.stringify({
-                    'FIO': entry.FIO,
-                    'Address': entry.address,
-                    'PhoneNo': entry.phone,
-                    'Salary': parseFloat(entry.salary)
-                })
+                body: JSON.stringify(filter(entry, fields))
             })
         )
     }
     for(let diff of changed){
         requests.push(
-            fetch(`professor/${id}`, {
+            fetch(`${resource}/${id}`, {
                 method: 'PUT', headers, redirect: 'manual',
                 //body: JSON.stringify(diff)
-                body: JSON.stringify({
-                    'FIO': diff.FIO,
-                    'Address': diff.address,
-                    'PhoneNo': diff.phone,
-                    'Salary': parseFloat(diff.salary)
-                })
+                body: JSON.stringify(filter(diff, fields))
             })
         )
     }
@@ -334,10 +327,10 @@ async function save(){
     //TODO: handle errors
     await Promise.all(requests)
 
-    let response = await fetch(`professor`, {
+    let response = await fetch(`${resource}`, {
         method: 'GET', headers, redirect: 'manual',
     })
-    let newDoc = (new DOMParser()).parseFromString(response.text(), 'text/html');
+    let newDoc = (new DOMParser()).parseFromString(response.text(), 'text/html')
     initialTable = readEnties(newDoc)
     currentTable = copyTable(initialTable)
     for(let entryElement of document.querySelectorAll('.entry'))
