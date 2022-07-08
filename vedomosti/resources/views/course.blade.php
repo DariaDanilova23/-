@@ -57,6 +57,7 @@
     <div id="new-entry" class="w3-panel w3-card w3-padding-16 w3-display-container">
         <table class="w3-table">
            <tr><td>Название дисциплины</td><td><input class="w3-input" type="text" name="Name" value=""/></td></tr>
+            <tr><td>id Преподавателя</td><td><input class="w3-input" type="number" name="id_professor" value=""/></td></tr>
         </table>
         <button
             id="add-btn"
@@ -74,6 +75,7 @@
             <table class="w3-table">
                 <tr><td>ID</td><td><input class="entry-id w3-input" type="number" name="id" value="" disabled/></td></tr>
                 <tr><td>Название дисциплины</td><td><input class="entry-field w3-input" type="text" name="Name" value=""/></td></tr>
+                <tr><td>id Преподавателя</td><td><input class="entry-field w3-input" type="number" name="id_professor" value=""/></td></tr>
             </table>
         </div>
     </template>
@@ -83,6 +85,7 @@
             <table class="w3-table">
                 <tr><td>ID</td><td><input class="entry-id w3-input" type="number" name="id" value="{!! $rowsItem['id'] !!}" disabled/></td></tr>
                 <tr><td>Название дисциплины</td><td><input class="entry-field w3-input" type="text" name="Name" value="{!! $rowsItem['Name'] !!}"/></td></tr>
+                <tr><td>id Преподавателя</td><td><input class="entry-field w3-input" type="number" name="id_professor" value="{!! $rowsItem['id_professor'] !!}"/></td></tr>
             </table>
         </div>
     @endforeach
