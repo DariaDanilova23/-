@@ -10,15 +10,15 @@ Node.prototype.getElementsByName = function(name){
 }
 
 class Entry {
-    constructor(id, FIO, address, phone, salary, deleted = false){
+    constructor(id, FIO, address, phone, email, ReportCardNo, deleted = false){
         if(typeof id === 'object'){
             Object.assign(this, id)
             return
         }
-        Object.assign(this, { id, FIO, address, phone, salary, deleted })
+        Object.assign(this, { id, FIO, address, phone, email, ReportCardNo, deleted })
     }
     read(element = this.element){
-        for(let name of [ 'id', 'FIO', 'address', 'phone', 'salary' ]){
+        for(let name of [ 'id', 'FIO', 'address', 'phone', 'email', 'ReportCardNo']){
             let input = element.getElementsByName(name)[0]
             if(input){
                 this[name] = input.value
@@ -27,7 +27,7 @@ class Entry {
         return this
     }
     write(element = this.element){
-        for(let name of [ 'id', 'FIO', 'address', 'phone', 'salary' ]){
+        for(let name of [ 'id', 'FIO', 'address', 'phone', 'email', 'ReportCardNo' ]){
             let input = element.getElementsByName(name)[0]
             if(input){
                 input.value = this[name]
@@ -39,7 +39,8 @@ class Entry {
         this.FIO === entry.FIO
         && this.address === entry.address
         && this.phone === entry.phone
-        && this.salary === entry.salary
+        && this.email === entry.email
+        && this.ReportCardNo === entry.ReportCardNo
     }
 }
 class FieldChange {
@@ -277,15 +278,6 @@ async function save(){
             removed.push(k)
             continue
         }
-        /*
-        let diff = {}
-        for(let name of ['FIO', 'address', 'phone', 'salary']){
-            if(initialV[name] != currentV[name])
-                diff[name] = currentV[name]
-        }
-        if('salary' in diff)
-            diff.salary = parseFloat(diff.salary)
-        */
        diff = currentV
         if(Object.keys(diff).length > 0)
             changed.push(diff)
@@ -298,34 +290,36 @@ async function save(){
     let requests = []
     for(let id of removed){
         requests.push(
-            fetch(`professor/${id}`, {
+            fetch(`student/${id}`, {
                 method: 'DELETE', headers, redirect: 'manual',
             })
         )
     }
     for(let entry of added){
         requests.push(
-            fetch(`professor`, {
+            fetch(`student`, {
                 method: 'POST', headers, redirect: 'manual',
                 body: JSON.stringify({
                     'FIO': entry.FIO,
                     'Address': entry.address,
                     'PhoneNo': entry.phone,
-                    'Salary': parseFloat(entry.salary)
+                    'email': entry.email,
+                    'ReportCardNo': parseFloat(entry.ReportCardNo)
                 })
             })
         )
     }
     for(let diff of changed){
         requests.push(
-            fetch(`professor/${id}`, {
+            fetch(`student/${id}`, {
                 method: 'PUT', headers, redirect: 'manual',
                 //body: JSON.stringify(diff)
                 body: JSON.stringify({
                     'FIO': diff.FIO,
                     'Address': diff.address,
                     'PhoneNo': diff.phone,
-                    'Salary': parseFloat(diff.salary)
+                    'email': entry.email,
+                    'ReportCardNo':  parseFloat(entry.ReportCardNo)
                 })
             })
         )
@@ -334,7 +328,7 @@ async function save(){
     //TODO: handle errors
     await Promise.all(requests)
 
-    let response = await fetch(`professor`, {
+    let response = await fetch(`student`, {
         method: 'GET', headers, redirect: 'manual',
     })
     let newDoc = (new DOMParser()).parseFromString(response.text(), 'text/html');

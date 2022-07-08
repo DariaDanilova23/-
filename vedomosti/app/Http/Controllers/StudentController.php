@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('forms', [
+        return view('students', [
             'title'=>['ФИО', 'Адрес', 'Номер телефона', 'email','Номер зачётки'],
             'rows'=>Student::all(),
             'names'=>['FIO','Address','PhoneNo','email','ReportCardNo'],
@@ -29,15 +29,6 @@ class StudentController extends Controller
      */
     public function create(Request $request)
     {
-        Student::create([
-            'FIO'=> $request['FIO'],
-            'Address'=> $request['Address'],
-            'PhoneNo'=> $request['PhoneNo'],
-            'email'=> $request['email'],
-            'ReportCardNo'=> $request['ReportCardNo']
-
-        ]);
-        return back();
     }
 
     /**
@@ -48,7 +39,15 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Student::create([
+            'FIO'=> $request['FIO'],
+            'Address'=> $request['Address'],
+            'PhoneNo'=> $request['PhoneNo'],
+            'email'=> $request['email'],
+            'ReportCardNo'=> $request['ReportCardNo']
+
+        ]);
+        return back();
     }
 
     /**
