@@ -74,7 +74,7 @@
         <div class="entry w3-panel w3-card w3-padding-16 w3-display-container">
             <input class="entry-checkbox w3-check w3-display-topright" type="checkbox">
             <table class="w3-table">
-                <tr><td>ID</td><td><input class="entry-id w3-input" type="number" name="id" value="" disabled/></td></tr>
+                <tr><td>ID</td><td><input class="entry-id w3-input" type="number" name="id" value="id" disabled/></td></tr>
                 <tr><td>ID Студента</td><td><input class="entry-field w3-input" type="number" name="id_student" value=""/></td></tr>
                 <tr><td>ID Курса</td><td><input class="entry-field w3-input" type="number" name="id_course" value=""/></td></tr>
                 <tr><td>Оценки</td><td><input class="entry-field w3-input" type="text" name="grade" value=""/></td></tr>
