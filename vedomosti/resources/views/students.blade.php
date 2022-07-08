@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="fields" content="{{ implode(",", $names) }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Студенты</title>
@@ -97,6 +98,6 @@
         </div>
     @endforeach
 </div>
-<script src="{{ asset("js/students.js") }}"></script>
+<script src="{{ asset("js/professors.js") }}"></script>
 </body>
 </html>
