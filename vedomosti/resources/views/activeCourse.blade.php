@@ -28,7 +28,7 @@
             Redo ⮌
         </button>
     </div>
-    @include('menu', [ 'current_table' => 'Курсы' ])
+    @include('menu', [ 'current_table' => 'Запись на курсы' ])
     <div class="w3-right" style="display: inline-block">
         <button
             id="deselect-btn"
@@ -56,8 +56,9 @@
 <div id="content" class="w3-content">
     <div id="new-entry" class="w3-panel w3-card w3-padding-16 w3-display-container">
         <table class="w3-table">
-           <tr><td>Название дисциплины</td><td><input class="w3-input" type="text" name="Name" value=""/></td></tr>
-            <tr><td>id Преподавателя</td><td><input class="w3-input" type="number" name="id_professor" value=""/></td></tr>
+            <tr><td>ID Студента</td><td><input class="w3-input" type="number" name="id_student" value=""/></td></tr>
+            <tr><td>ID Курса</td><td><input class="w3-input" type="number" name="id_course" value=""/></td></tr>
+            <tr><td>Оценки</td><td><input class="w3-input" type="text" name="grade" value=""/></td></tr>
         </table>
         <button
             id="add-btn"
@@ -74,8 +75,9 @@
             <input class="entry-checkbox w3-check w3-display-topright" type="checkbox">
             <table class="w3-table">
                 <tr><td>ID</td><td><input class="entry-id w3-input" type="number" name="id" value="" disabled/></td></tr>
-                <tr><td>Название дисциплины</td><td><input class="entry-field w3-input" type="text" name="Name" value=""/></td></tr>
-                <tr><td>id Преподавателя</td><td><input class="entry-field w3-input" type="number" name="id_professor" value=""/></td></tr>
+                <tr><td>ID Студента</td><td><input class="entry-field w3-input" type="number" name="id_student" value=""/></td></tr>
+                <tr><td>ID Курса</td><td><input class="entry-field w3-input" type="number" name="id_course" value=""/></td></tr>
+                <tr><td>Оценки</td><td><input class="entry-field w3-input" type="text" name="grade" value=""/></td></tr>
             </table>
         </div>
     </template>
@@ -84,8 +86,10 @@
             <input class="entry-checkbox w3-check w3-display-topright" type="checkbox">
             <table class="w3-table">
                 <tr><td>ID</td><td><input class="entry-id w3-input" type="number" name="id" value="{!! $rowsItem['id'] !!}" disabled/></td></tr>
-                <tr><td>Название дисциплины</td><td><input class="entry-field w3-input" type="text" name="Name" value="{!! $rowsItem['Name'] !!}"/></td></tr>
-                <tr><td>ID Преподавателя</td><td><input class="entry-field w3-input" type="number" name="id_professor" value="{!! $rowsItem['id_professor'] !!}"/></td></tr>
+                <tr><td>ID Студента</td><td><input class="entry-field w3-input" type="number" name="id_student" value="{!! $rowsItem['id_student'] !!}"/></td></tr>
+                <tr><td>ID Курса</td><td><input class="entry-field w3-input" type="number" name="id_course" value="{!! $rowsItem['id_course'] !!}"/></td></tr>
+                <tr><td>Оценки</td><td><input class="entry-field w3-input" type="text" name="grade" value="{!! $rowsItem['grade'] !!}"/></td></tr>
+
             </table>
         </div>
     @endforeach
