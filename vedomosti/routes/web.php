@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ReportController::class, 'index'])->name('welcome');
+Route::get('/', [ReportController::class, 'create'])->name('welcome');
 Route::resource('professor', ProfessorController::class);
 Route::resource('student', StudentController::class);
 Route::resource('course', CourseController::class);
