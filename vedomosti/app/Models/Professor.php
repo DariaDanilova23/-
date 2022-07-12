@@ -14,4 +14,7 @@ class Professor extends Model
     public function course(){
         return $this->hasMany(Course::class);
     }
+    public function activeCourse(){
+        return $this->hasManyThrough(ActiveCourse::class,Course::class,'id_professor','id_course','id','id');
+    }
 }

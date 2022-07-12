@@ -12,9 +12,10 @@ class Course extends Model
         'id','Name','id_professor'
     ];
     public function professor(){
-        return $this->belongsTo(Professor::class);
+        return $this->belongsTo(Professor::class,'id_professor','id');
     }
     public function active(){
         return $this->hasMany(ActiveCourse::class);
     }
+
 }

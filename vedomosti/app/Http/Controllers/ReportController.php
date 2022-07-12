@@ -33,6 +33,39 @@ class ReportController extends Controller
     public function create()
     {
         Report::truncate();
+        foreach ($records=Professor::with('activeCourse')->get() as $record) {
+            $row = new Report;
+            $marks_sum=0;
+            $amount=0;
+            $row->FIO=$record['FIO'];
+            foreach ($record['activeCourse'] as $marks){
+                $marks_sum+=array_sum($marks['grade']);
+                $amount+=count($marks['grade']);
+            }
+            if($amount==0) $row->Average_grade=0;
+            else $row->Average_grade = $marks_sum/$amount;
+            $row->Amount = count($record['activeCourse']);
+            $row->save();
+        }
+      /*
+        ///самое ок
+        Report::truncate();
+        foreach ($records=ActiveCourse::with('course','student')->get() as $record) {
+            $row = new Report;
+            $row->FIO = $record;
+            $row->Average_grade = 0;
+            $row->Amount = 0;
+            $row->save();
+        }
+        ///*/
+       /* foreach (ActiveCourse::with('course')->get() as $professors){
+            $row = new Report;
+            $row->FIO=$professors['id'];
+            $row->Average_grade=0;
+            $row->Amount=0;
+            $row->save();
+        }*/
+       /* Report::truncate();
         foreach (Professor::all() as $professors){
             $row = new Report;
             $countMarks=0;
@@ -55,7 +88,7 @@ class ReportController extends Controller
             $row->Amount=$sudentsOnCourse;
             $row->Average_grade=$average;
             $row->save();
-        }
+        }*/
         return $this->index();
     }
 

@@ -15,9 +15,9 @@ class ActiveCourse extends Model
     'grade'=>'array'
     ];
     public function student(){
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class,'id_student','id');
     }
     public function course(){
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class,'id_course','id');
     }
 }
