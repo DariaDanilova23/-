@@ -32,12 +32,23 @@ class ReportController extends Controller
         return view('professors');
     }
 
+    public function eachBest(){
+        Report::truncate();
+        $eachBest=array();
+        foreach (Professor::with('activeCourse')->get() as $record) {
+            $st=new ActiveCourse();
+            $eachBest[$record['id']]['FIO']==$record['FIO'];
+            $students=Student::whereIn('id',$st->best($record['activeCourse']))->pluck('FIO');
+            $eachBest[$record['id']]['FIO_student']=preg_replace(array('/\[/', '/\]/','/\"/'), '', $students);
+        }
+        return view('welcome',['eachBest'=>$eachBest]);
+    }
     public function bestStudent()
     {
         Report::truncate();
         $i=0;
+        $best= array();
         foreach (ActiveCourse::with('student')->get() as $record) {
-            $best= array();
             $st=new ActiveCourse();
             $best[$record['student']['id']]['FIO']=$record['student']['FIO'];
             $best[$record['student']['id']]['grade']=$st->average($record);
@@ -45,12 +56,12 @@ class ReportController extends Controller
         }
         return view('welcome',['studentChart'=>$best]);
     }
-    public function create()
+    public function create ()
     {
         Report::truncate();
         $i=0;
+        $reportActive= array();
         foreach (Professor::with('activeCourse')->get() as $record) {
-            $reportActive= array();
             $st=new ActiveCourse();
             $reportActive[$record['id']]['FIO']=$record['FIO'];
             $average=0;

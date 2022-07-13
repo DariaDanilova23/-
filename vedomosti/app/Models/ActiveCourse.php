@@ -28,4 +28,17 @@ class ActiveCourse extends Model
         if($amount==0) return 0;
         else return $mark/$amount ;
     }
+    public function best($id){
+        $max='';
+        $id_student=array();
+        foreach ($id as $item){
+            $findMax=$this->average($item);
+           if($findMax>=$max){
+               if($findMax>$max){ unset($id_student);}
+                $max=$findMax;
+               $id_student[]=$item['id_student'];
+            }
+        }
+        return $id_student;
+    }
 }
