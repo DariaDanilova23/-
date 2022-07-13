@@ -37,41 +37,31 @@ class ReportController extends Controller
         Report::truncate();
         $i=0;
         foreach (ActiveCourse::with('student')->get() as $record) {
-            $row = new Report;//---
             $best= array();
             $st=new ActiveCourse();
-            $row->FIO=$record['student']['FIO'];//---
-            $best[$i]['FIO']=$record['student']['FIO'];
-            $row->Amount=0;//----
-            $row->Average_grade = $st->average($record);//-------
-            $best[$i]['grade']=$st->average($record);
-            $row->save();//-------
+            $best[$record['student']['id']]['FIO']=$record['student']['FIO'];
+            $best[$record['student']['id']]['grade']=$st->average($record);
             $i++;
         }
-        return $this->index();
+        return view('welcome',['studentChart'=>$best]);
     }
     public function create()
     {
         Report::truncate();
         $i=0;
         foreach (Professor::with('activeCourse')->get() as $record) {
-            $row = new Report;//-----------
             $reportActive= array();
             $st=new ActiveCourse();
-            $reportActive[$i]['FIO']=$record['FIO'];
-            $row->FIO=$reportActive[$i]['FIO'];//-------
+            $reportActive[$record['id']]['FIO']=$record['FIO'];
             $average=0;
             foreach ($record['activeCourse'] as $mark){
                 $average+=$st->average($mark);
             }
-            $reportActive[$i]['grade']=$average;
-            $row->Average_grade=$reportActive[$i]['grade'];//------------
-            $reportActive[$i]['amount']=count($record['activeCourse']);
-            $row->Amount=$reportActive[$i]['amount'];//-----
-            $row->save();//-----------
+            $reportActive[$record['id']]['grade']=$average;
+            $reportActive[$record['id']]['amount']=count($record['activeCourse']);
             $i++;
         }
-        return $this->index();
+        return view('welcome',['professorChart'=>$reportActive]);
     }
 
     /**
