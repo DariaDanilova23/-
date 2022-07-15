@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ReportController::class, 'mainReport']);
-Route::get('/bestStudent', [ReportController::class, 'bestStudent']);
-Route::get('/eachBest', [ReportController::class, 'eachBest']);
+Route::get('/', [ReportController::class, 'mainReport'])->name('report.mainReport');
+Route::get('/bestStudent', [ReportController::class, 'bestStudent'])->name('report.bestStudent');
+Route::get('/eachBest', [ReportController::class, 'eachBest'])->name('report.eachBest');
 Route::resource('professor', ProfessorController::class);
 Route::resource('student', StudentController::class);
 Route::resource('course', CourseController::class);

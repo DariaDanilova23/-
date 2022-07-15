@@ -8,5 +8,8 @@
         <a class="w3-bar-item w3-button" href="{{ route('course.index') }}">Курсы</a>
         <a class="w3-bar-item w3-button" href="{{ route('student.index') }}">Студенты</a>
         <a class="w3-bar-item w3-button" href="{{ route('activecourse.index') }}">Запись на курсы</a>
+        <a class="w3-bar-item w3-button" href="{{ route('report.mainReport') }}">Основной отчёт</a>
+        <a class="w3-bar-item w3-button" href="{{ route('report.bestStudent') }}">Рейтинг студентов</a>
+        <a class="w3-bar-item w3-button" href="{{ route('report.eachBest') }}">Лучшие студенты преподавателя</a>
     </div>
 </div>
