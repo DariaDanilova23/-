@@ -38,7 +38,7 @@ class ReportController extends Controller
         foreach (Professor::with('activeCourse')->get() as $record) {
             $st=new ActiveCourse();
             $eachBest[$record['id']]['FIO']=$record['FIO'];
-            $students=Student::whereIn('id',$st->best($record['activeCourse']))->pluck('FIO');
+            $students=Student::whereIn('id',$st->best($record['activeCourse']))->get()->pluck('FIO');
             $eachBest[$record['id']]['FIO_student']=preg_replace(array('/\[/', '/\]/','/\"/'), '', $students);
         }
         return view('welcome',['eachBest'=>$eachBest]);
@@ -57,16 +57,16 @@ class ReportController extends Controller
     }
     public function mainReport()
     {
-        Report::truncate();
         $reportActive= array();
         foreach (Professor::with('activeCourse')->get() as $record) {
             $st=new ActiveCourse();
             $reportActive[$record['id']]['FIO']=$record['FIO'];
             $average=0;
+            $i=count($record['activeCourse']);
             foreach ($record['activeCourse'] as $mark){
                 $average+=$st->average($mark);
             }
-            $reportActive[$record['id']]['grade']=$average;
+            $reportActive[$record['id']]['grade']=$average/$i;
             $reportActive[$record['id']]['amount']=count($record['activeCourse']);
         }
         return view('welcome',['professorChart'=>$reportActive]);
