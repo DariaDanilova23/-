@@ -29,18 +29,42 @@
         </button>
     </div>
     <table id="data-table" class="w3-content w3-section w3-table w3-bordered">
-        <thead>
-            <th>ФИО профессора</th>
-            <th>Количество студентов</th>
-            <th>Средняя успеваемость студентов</th>
-        </thead>
-        @foreach ($rows as $rowsItem)
-        <tr>
-            <td>{!! $rowsItem['FIO'] !!}</td>
-            <td>{!! $rowsItem['Amount'] !!}</td>
-            <td>{!! $rowsItem['Average_grade'] !!}</td>
-        </tr>
-        @endforeach
+        @if (isset($rows))
+            <thead>
+                <th>ФИО профессора</th>
+                <th>Количество студентов</th>
+                <th>Средняя успеваемость студентов</th>
+            </thead>
+            @foreach ($rows as $rowsItem)
+            <tr>
+                <td>{!! $rowsItem['FIO'] !!}</td>
+                <td>{!! $rowsItem['Amount'] !!}</td>
+                <td>{!! $rowsItem['Average_grade'] !!}</td>
+            </tr>
+            @endforeach
+        @elseif (isset($eachBest))
+            <thead>
+                <th>ФИО профессора</th>
+                <th>ФИО студентов</th>
+            </thead>
+            @foreach ($eachBest as $id => $rowsItem)
+            <tr>
+                <td>{!! $rowsItem['FIO'] !!}</td>
+                <td>{!! $rowsItem['FIO_student'] !!}</td>
+            </tr>
+            @endforeach
+        @elseif (isset($studentChart))
+            <thead>
+                <th>ФИО студента</th>
+                <th>Средняя оценка</th>
+            </thead>
+            @foreach ($studentChart as $id => $rowsItem)
+            <tr>
+                <td>{!! $rowsItem['FIO'] !!}</td>
+                <td>{!! $rowsItem['grade'] !!}</td>
+            </tr>
+            @endforeach
+        @endif
     </table>
     <div class="w3-small w3-text-grey w3-center w3-margin">
         Powered by the <a href="https://sheetjs.com/opensource">community version of sheetjs</a>
