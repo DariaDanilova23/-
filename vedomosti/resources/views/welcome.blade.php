@@ -29,17 +29,17 @@
         </button>
     </div>
     <table id="data-table" class="w3-content w3-section w3-table w3-bordered">
-        @if (isset($rows))
+        @if (isset($professorChart))
             <thead>
                 <th>ФИО профессора</th>
                 <th>Количество студентов</th>
                 <th>Средняя успеваемость студентов</th>
             </thead>
-            @foreach ($rows as $rowsItem)
+            @foreach ($professorChart as $id => $rowsItem)
             <tr>
                 <td>{!! $rowsItem['FIO'] !!}</td>
-                <td>{!! $rowsItem['Amount'] !!}</td>
-                <td>{!! $rowsItem['Average_grade'] !!}</td>
+                <td>{!! $rowsItem['amount'] !!}</td>
+                <td>{!! $rowsItem['grade'] !!}</td>
             </tr>
             @endforeach
         @elseif (isset($eachBest))

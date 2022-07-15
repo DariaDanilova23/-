@@ -46,21 +46,18 @@ class ReportController extends Controller
     public function bestStudent()
     {
         Report::truncate();
-        $i=0;
         $best= array();
         foreach (ActiveCourse::with('student')->get() as $record) {
             $st=new ActiveCourse();
             $best[$record['student']['id']]['FIO']=$record['student']['FIO'];
             $best[$record['student']['id']]['grade']=$st->average($record);
-            $i++;
         }
         arsort($best);
         return view('welcome',['studentChart'=>$best]);
     }
-    public function create ()
+    public function mainReport()
     {
         Report::truncate();
-        $i=0;
         $reportActive= array();
         foreach (Professor::with('activeCourse')->get() as $record) {
             $st=new ActiveCourse();
@@ -71,7 +68,6 @@ class ReportController extends Controller
             }
             $reportActive[$record['id']]['grade']=$average;
             $reportActive[$record['id']]['amount']=count($record['activeCourse']);
-            $i++;
         }
         return view('welcome',['professorChart'=>$reportActive]);
     }
